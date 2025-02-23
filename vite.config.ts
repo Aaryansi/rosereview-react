@@ -1,8 +1,15 @@
-import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  plugins: [react()],
+  server: {
+    port: 3000,
+  },
+  build: {
+    outDir: "dist",
+    rollupOptions: {
+      input: "index.html", // Ensure entry file is set correctly
+    },
+  },
 });
