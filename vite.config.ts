@@ -7,9 +7,10 @@ export default defineConfig({
     port: 3000,
   },
   build: {
-    outDir: "dist",
+    outDir: "dist", 
     rollupOptions: {
-      input: "index.html", // Ensure entry file is set correctly
+      input: "index.html",
     },
   },
+  base: "/", // ✅ Ensures Vite correctly serves assets on Vercel
 });
