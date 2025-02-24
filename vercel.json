@@ -1,18 +1,11 @@
 {
   "builds": [
     {
-      "src": "package.json",
       "use": "@vercel/static-build",
       "config": { "distDir": "dist" }
     }
   ],
   "rewrites": [
-    { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "redirects": [
-    { "source": "/courses", "destination": "/index.html", "statusCode": 200 },
-    { "source": "/profs", "destination": "/index.html", "statusCode": 200 },
-    { "source": "/review", "destination": "/index.html", "statusCode": 200 },
-    { "source": "/allreviews", "destination": "/index.html", "statusCode": 200 }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
