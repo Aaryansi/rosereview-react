@@ -3,14 +3,15 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  base: "./", // Ensure relative paths
   server: {
     port: 3000,
   },
   build: {
-    outDir: "dist", 
+    outDir: "dist",
+    assetsDir: "assets",
     rollupOptions: {
-      input: "index.html",
+      input: "index.html", // Ensure this is correct
     },
   },
-  base: "/", // ✅ Ensures Vite correctly serves assets on Vercel
 });
