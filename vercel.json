@@ -1,10 +1,10 @@
 {
-  "builds": [
-    {
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+  "build": {
+    "use": "@vercel/static-build",
+    "config": {
+      "distDir": "dist"
     }
-  ],
+  },
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
