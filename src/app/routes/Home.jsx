@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="bg-white relative">
-      <div className="relative isolate px-6 pt-20 lg:px-8">
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 text-center">
+    <div className="bg-white flex items-center justify-center min-h-screen">
+
+      <div className="relative isolate px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32 text-center">
           <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl">
             Find The Best Professors & Courses
           </h1>

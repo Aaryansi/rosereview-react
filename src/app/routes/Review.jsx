@@ -127,7 +127,7 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
 
         {/* Professor Selection (Global, No Filtering) */}
         <label className="block">
-          <span className="text-gray-700 font-semibold">Professor (Optional)</span>
+          <span className="text-gray-700 font-semibold">Professor </span>
           <select
             className="w-full mt-1 p-3 rounded-md border bg-white"
             value={selectedProfessor || ""}
