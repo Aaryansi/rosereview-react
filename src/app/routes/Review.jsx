@@ -216,10 +216,6 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
           {loading ? "Submitting..." : "Submit Review"}
         </button>
       </form>
-
-      
-
-
     </div>
   );
 }

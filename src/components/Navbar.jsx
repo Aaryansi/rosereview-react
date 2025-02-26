@@ -49,7 +49,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full h-20 px-8 py-4 bg-white bg-opacity-60 backdrop-blur-lg shadow-md flex justify-between items-center z-50">
-      <h1 className="text-gray-900 text-2xl font-bold tracking-wide">RHIT Courses and Profs</h1>
+      <h1 className="text-gray-900 text-2xl font-bold tracking-wide">Rose Reviews</h1>
       
       <div className="space-x-6 text-gray-800 font-medium flex items-center">
         <Link to="/" className="hover:text-red-500 transition">Home</Link>
