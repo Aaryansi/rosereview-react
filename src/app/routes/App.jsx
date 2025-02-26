@@ -5,6 +5,9 @@ import Profs from "./Profs";
 import Review from "./Review";
 import AllReviews from "./Allreviews";
 import Navbar from "../../components/Navbar";
+import Footer from "./Footer"; // ✅ Ensure correct path
+
+
 
 export default function App() {
   return (
@@ -18,6 +21,7 @@ export default function App() {
           <Route path="/review" element={<Review />} />
           <Route path="/allreviews" element={<AllReviews />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
