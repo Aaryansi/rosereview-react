@@ -23,18 +23,28 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
   const courseName = searchParams.get("name");
   const professorParam = searchParams.get("professor");
 
-  const availableCourseTags = ["Easy Grader", "Tough Exams", "Fair Assignments"];
-  const availableProfessorTags = ["Helpful", "Strict", "Engaging"];
+  const availableCourseTags = [
+    "Easy Grader", "Tough Exams", "Fair Assignments",
+    "Heavy Workload", "Light Workload", "Great Lectures",
+    "Practical Focus", "Challenging but Rewarding",
+    "Project-Based", "Curve Adjusted", "Unorganized"
+  ];
+  const availableProfessorTags = [
+    "Helpful", "Strict", "Engaging",
+    "Fast-Paced", "Slow-Paced", "Encouraging",
+    "Hard to Understand", "Lots of Extra Credit",
+    "Tough Grader", "Great Feedback", "Late Responses"
+  ];
 
   useEffect(() => {
     async function fetchData() {
       const allCourses = await getCourses();
       setCourses(allCourses);
       setDepartments([...new Set(allCourses.map((c) => c.department))]);
-    
+
       const allProfessors = await getProfessors();
       setProfessors(allProfessors);
-    
+
       // ✅ Auto-fill course and department if passed from URL
       if (courseParam) {
         setSelectedCourse(courseParam);
@@ -43,12 +53,12 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
           setSelectedDepartment(course.department);
         }
       }
-      
+
       // ✅ Set Professor if passed via URL
       if (professorParam) {
         setSelectedProfessor(professorParam);
       }
-    
+
       // ✅ Auto-fill professor if passed from URL
       if (professorParam) {
         setSelectedProfessor(professorParam);
@@ -75,25 +85,25 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     if (!selectedCourse || rating === 0) {
       alert("Please select a course and provide a rating.");
       setLoading(false);
       return;
     }
-
+  
     try {
       await submitReview({
         department: selectedDepartment,
         courseId: selectedCourse.trim(),
         professorId: selectedProfessor || null,
         comments,
-        courseTags,
-        professorTags,
+        courseTags: [...courseTags],  // ✅ Ensure the array is stored properly
+        professorTags: [...professorTags], // ✅ Ensure the array is stored properly
         rating,
         timestamp: Timestamp.now(),
       });
-
+  
       alert("Review submitted successfully!");
       setComments("");
       setCourseTags([]);
@@ -105,7 +115,7 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
       console.error("Error submitting review:", error);
       alert("Failed to submit review. Try again.");
     }
-
+  
     setLoading(false);
   };
 
@@ -185,13 +195,14 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
 
         {/* Course Tags Selection */}
         <label className="block">
-          <span className="text-gray-700 font-semibold">Course Tags</span>
+          <span className="text-gray-700 font-semibold">Course:</span>
           <div className="flex flex-wrap gap-2 mt-2">
             {availableCourseTags.map((tag) => (
               <button
                 key={tag}
                 type="button"
-                className={`px-3 py-2 rounded-lg text-sm ${courseTags.includes(tag) ? "bg-red-600 text-white" : "bg-gray-200 text-gray-700"}`}
+                className={`px-3 py-2 rounded-lg text-sm ${courseTags.includes(tag) ? "bg-red-600 text-white" : "bg-gray-200 text-gray-700"
+                  }`}
                 onClick={() =>
                   setCourseTags((prevTags) =>
                     prevTags.includes(tag) ? prevTags.filter((t) => t !== tag) : [...prevTags, tag]
@@ -206,13 +217,14 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
 
         {/* Professor Tags Selection */}
         <label className="block">
-          <span className="text-gray-700 font-semibold">Professor Tags</span>
+          <span className="text-gray-700 font-semibold">Professor:</span>
           <div className="flex flex-wrap gap-2 mt-2">
             {availableProfessorTags.map((tag) => (
               <button
                 key={tag}
                 type="button"
-                className={`px-3 py-2 rounded-lg text-sm ${professorTags.includes(tag) ? "bg-red-600 text-white" : "bg-gray-200 text-gray-700"}`}
+                className={`px-3 py-2 rounded-lg text-sm ${professorTags.includes(tag) ? "bg-red-600 text-white" : "bg-gray-200 text-gray-700"
+                  }`}
                 onClick={() =>
                   setProfessorTags((prevTags) =>
                     prevTags.includes(tag) ? prevTags.filter((t) => t !== tag) : [...prevTags, tag]

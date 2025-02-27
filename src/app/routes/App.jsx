@@ -11,6 +11,8 @@ import AllReviews from "./Allreviews";
 import Navbar from "../../components/Navbar";
 import Footer from "./Footer";
 import Login from "./Login";
+import LoginPopup from "../../components/LoginPopup"; // ✅ Import it
+
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -35,7 +37,7 @@ export default function App() {
       <div className="pt-20">
         <Routes>
           {!user ? (
-            <Route path="/*" element={<Login />} /> // 🔐 If not logged in, redirect to login
+            <Route path="/*" element={<LoginPopup />} /> // 🔐 If not logged in, redirect to login
           ) : (
             <>
               <Route path="/" element={<Home />} />

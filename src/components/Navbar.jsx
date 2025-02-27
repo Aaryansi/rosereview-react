@@ -18,6 +18,13 @@ export default function Navbar({ user }) {
         <Link to="/profs" className="hover:text-red-500 transition">Professors</Link>
         <Link to="/allreviews" className="hover:text-red-500 transition">Reviews</Link>
 
+        {/* ✅ Always Show "Submit a Review" Button */}
+        <Link to="/review">
+          <button className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
+            Submit Review
+          </button>
+        </Link>
+
         {user ? (
           <div className="flex items-center space-x-4">
             <span className="text-gray-900">{user.displayName || "User"}</span>

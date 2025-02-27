@@ -17,6 +17,9 @@ export default function AllReviews() {
   const [updatedTags, setUpdatedTags] = useState([]);
   const [updatedRating, setUpdatedRating] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
+  const [updatedCourseTags, setUpdatedCourseTags] = useState([]);
+  const [updatedProfessorTags, setUpdatedProfessorTags] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,9 +88,12 @@ export default function AllReviews() {
     setUpdatedProfessor(review.professorId || "");
     setUpdatedComments(review.comments || "");
     setUpdatedTags(review.tags || []);
+    setUpdatedCourseTags(review.courseTags || []);  // ✅ Store course tags separately
+    setUpdatedProfessorTags(review.professorTags || []);  // ✅ Store professor tags separately
     setUpdatedRating(review.rating || 0);
     setIsEditing(true);
   };
+
 
   // Update Review
   const handleUpdate = async () => {
@@ -96,16 +102,19 @@ export default function AllReviews() {
       courseId: updatedCourse,
       professorId: updatedProfessor,
       comments: updatedComments,
-      tags: updatedTags,
+      courseTags: [...updatedCourseTags], // ✅ Ensure course tags are updated
+      professorTags: [...updatedProfessorTags], // ✅ Ensure professor tags are updated
       rating: updatedRating,
     });
+
     setReviews(
       reviews.map((r) =>
         r.id === editingReview.id
-          ? { ...r, courseId: updatedCourse, professorId: updatedProfessor, comments: updatedComments, tags: updatedTags, rating: updatedRating }
+          ? { ...r, courseId: updatedCourse, professorId: updatedProfessor, comments: updatedComments, courseTags: updatedCourseTags, professorTags: updatedProfessorTags, rating: updatedRating }
           : r
       )
     );
+
     setIsEditing(false);
   };
 
@@ -136,7 +145,20 @@ export default function AllReviews() {
             </h2>
             <p className="text-gray-600">{review.department || "Unknown Department"}</p>
             <p className="text-gray-800 mt-2">{review.comments}</p>
-            <p className="text-sm text-gray-500 mt-1">{review.tags?.join(", ") || "No tags"}</p>
+
+            {/* 🔥 Display Course & Professor Tags */}
+            <div className="mt-3">
+              {review.courseTags && review.courseTags.length > 0 && (
+                <p className="text-sm text-gray-700">
+                  <strong>Course Tags:</strong> {review.courseTags.join(", ")}
+                </p>
+              )}
+              {review.professorTags && review.professorTags.length > 0 && (
+                <p className="text-sm text-gray-700 mt-1">
+                  <strong>Professor Tags:</strong> {review.professorTags.join(", ")}
+                </p>
+              )}
+            </div>
 
             {/* Star Rating */}
             <div className="flex space-x-1 mt-2">
@@ -159,30 +181,68 @@ export default function AllReviews() {
 
       {/* Edit Modal */}
       {isEditing && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-bold">Edit Review</h2>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[600px]"> {/* ✅ Made it wider */}
+            <h2 className="text-xl font-bold mb-4">Edit Review</h2>
+
+            {/* Comments Input */}
             <textarea
-              className="w-full mt-2 p-2 border rounded-md"
+              className="w-full p-2 border rounded-md"
               value={updatedComments}
               onChange={(e) => setUpdatedComments(e.target.value)}
             />
-            <div className="flex flex-wrap gap-2 mt-2">
-              {["Tag1", "Tag2", "Tag3"].map((tag) => (
-                <button
-                  key={tag}
-                  className={`px-2 py-1 border rounded-md ${updatedTags.includes(tag) ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-                  onClick={() =>
-                    setUpdatedTags((prevTags) =>
-                      prevTags.includes(tag) ? prevTags.filter((t) => t !== tag) : [...prevTags, tag]
-                    )
-                  }
-                >
-                  {tag}
-                </button>
-              ))}
+
+            {/* 🔥 Course Tags */}
+            <div className="mt-4">
+              <h3 className="text-sm font-semibold">Course:</h3>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {["Tough Exams", "Many Assignments", "Easy A", "Interesting Material",
+                  "Group Projects", "Online Lectures", "In-Person Lectures",
+                  "Heavy Workload", "Light Workload", "Easy Exams",
+                  "Practical Focus", "Challenging but Rewarding",
+                  "Project-Based", "Curve Adjusted", "Unorganized"].map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      className={`px-3 py-1 border rounded-md ${updatedCourseTags.includes(tag) ? "bg-red-600 text-white" : "bg-gray-200"}`}
+                      onClick={() =>
+                        setUpdatedCourseTags((prevTags) =>
+                          prevTags.includes(tag) ? prevTags.filter((t) => t !== tag) : [...prevTags, tag]
+                        )
+                      }
+                    >
+                      {tag}
+                    </button>
+                  ))}
+              </div>
             </div>
-            <button className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg" onClick={handleUpdate}>
+
+            {/* 🔥 Professor Tags */}
+            <div className="mt-4">
+              <h3 className="text-sm font-semibold">Professor:</h3>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {["Helpful", "Strict", "Engaging", "Madatory Attendance",
+                  "Fast-Paced", "Slow-Paced", "Encouraging",
+                  "Hard to Understand", "Lots of Extra Credit",
+                  "Tough Grader", "Great Feedback", "Late Responses"].map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      className={`px-3 py-1 border rounded-md ${updatedProfessorTags.includes(tag) ? "bg-red-600 text-white" : "bg-gray-200"}`}
+                      onClick={() =>
+                        setUpdatedProfessorTags((prevTags) =>
+                          prevTags.includes(tag) ? prevTags.filter((t) => t !== tag) : [...prevTags, tag]
+                        )
+                      }
+                    >
+                      {tag}
+                    </button>
+                  ))}
+              </div>
+            </div>
+
+            {/* Save Changes Button */}
+            <button className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={handleUpdate}>
               Save Changes
             </button>
           </div>
