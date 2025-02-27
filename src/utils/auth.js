@@ -1,24 +1,29 @@
-import firebase from "../config/firebaseConfig";
-import Rosefire from "rosefire"; // Import Rosefire
+// src/utils/auth.js
 
-const ROSEFIRE_REGISTRY_TOKEN = "62c320b3-a749-4d11-9994-4ce75959e8c5"; // Replace with your Rosefire Registry Token
+import { auth } from "../config/firebaseConfig";
+import { signInWithCustomToken, signOut, onAuthStateChanged } from "firebase/auth";
 
-/** 🚀 Function to Sign in with Rosefire */
+const ROSEFIRE_REGISTRY_TOKEN = "62c320b3-a749-4d11-9994-4ce75959e8c5"; // Replace with your registry token
+
+/** 🚀 Sign in with Rosefire */
 export const signInWithRosefire = async () => {
   return new Promise((resolve, reject) => {
-    Rosefire.signIn(ROSEFIRE_REGISTRY_TOKEN, async (err, rfUser) => {
+    // Ensure Rosefire is loaded before calling signIn
+    if (!window.Rosefire) {
+      reject(new Error("Rosefire script not loaded!"));
+      return;
+    }
+
+    window.Rosefire.signIn(ROSEFIRE_REGISTRY_TOKEN, async (err, rfUser) => {
       if (err) {
         console.error("❌ Rosefire error:", err);
         reject(err);
         return;
       }
 
-      console.log("✅ Rosefire success!", rfUser);
-
       try {
         // Authenticate with Firebase using Rosefire token
-        const userCredential = await firebase.auth().signInWithCustomToken(rfUser.token);
-        console.log("✅ Firebase login success:", userCredential.user);
+        const userCredential = await signInWithCustomToken(auth, rfUser.token);
         resolve(userCredential.user);
       } catch (error) {
         console.error("❌ Firebase authentication failed:", error.message);
@@ -28,19 +33,12 @@ export const signInWithRosefire = async () => {
   });
 };
 
-/** 👀 Listener to track authentication state */
-export const authStateListener = (callback) => {
-  firebase.auth().onAuthStateChanged((user) => {
-    callback(user);
-  });
+/** 🚪 Logout function */
+export const signOutUser = async () => {
+  await signOut(auth);
 };
 
-/** 🚪 Logout function */
-export const signOut = async () => {
-  try {
-    await firebase.auth().signOut();
-    console.log("✅ User logged out successfully");
-  } catch (error) {
-    console.error("❌ Error logging out:", error.message);
-  }
+/** 👀 Auth State Listener */
+export const authStateListener = (callback) => {
+  return onAuthStateChanged(auth, callback);
 };

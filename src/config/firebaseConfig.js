@@ -1,3 +1,8 @@
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
+// ✅ Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBbgkfiwFqTN1tN7Yn_V1MvPup_ft0ffpQ",
   authDomain: "rosermp-1ac4d.firebaseapp.com",
@@ -8,4 +13,11 @@ const firebaseConfig = {
   measurementId: "G-X5J7GBBSHR",
 };
 
-export default firebaseConfig;
+// ✅ Initialize Firebase (Prevent Multiple Instances)
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ✅ Export only ONE instance of Firebase Auth & Firestore
+export { auth, db };
+export default app;

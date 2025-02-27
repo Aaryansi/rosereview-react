@@ -1,69 +1,56 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import { auth } from "../config/firebaseConfig";
+import { auth } from "../../config/firebaseConfig";
 import { signInWithCustomToken } from "firebase/auth";
 
-const RoseLogin = () => {
-  const [error, setError] = useState(null);  // Corrected type definition
+export default function Login() {
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Load Rosefire SDK dynamically
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "/rosefire.min.js"; // Load from public folder
+    script.src = "/rosefire.min.js"; // ✅ Ensure this file exists in `/public`
     script.async = true;
     document.body.appendChild(script);
   }, []);
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     setLoading(true);
-    try {
-      if (!window.Rosefire) {
-        throw new Error("Rosefire script not loaded!");
+    if (!window.Rosefire) {
+      setError("Rosefire script not loaded!");
+      setLoading(false);
+      return;
+    }
+
+    window.Rosefire.signIn("62c320b3-a749-4d11-9994-4ce75959e8c5", async (err, rfUser) => {
+      if (err) {
+        setError("Rosefire login failed.");
+        setLoading(false);
+        return;
       }
 
-      // Authenticate with Rosefire
-      window.Rosefire.signIn("62c320b3-a749-4d11-9994-4ce75959e8c5", async (err, rfUser) => {
-        if (err) {
-          console.error("Rosefire error!", err);
-          setError("Rosefire login failed.");
-          setLoading(false);
-          return;
-        }
+      try {
+        await signInWithCustomToken(auth, rfUser.token);
+      } catch (error) {
+        setError("Firebase login failed: " + error.message);
+      }
 
-        console.log("Rosefire success!", rfUser);
-
-        // Authenticate with Firebase using the token
-        try {
-          await signInWithCustomToken(auth, rfUser.token);
-          console.log("Firebase login successful!");
-        } catch (firebaseError) {
-          console.error("Firebase login error", firebaseError.message);
-          setError("Firebase login failed: " + firebaseError.message);
-        }
-      });
-    } catch (error) {
-      console.error(error);
-      setError(error.message);
-    } finally {
       setLoading(false);
-    }
+    });
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Login with Rose-Hulman SSO</h1>
-      {error && <p className="text-red-500">{error}</p>}
-      <button
-        onClick={handleLogin}
-        className="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        disabled={loading}
-      >
-        {loading ? "Logging in..." : "Login with Rosefire"}
-      </button>
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+        <h2 className="text-2xl font-semibold">Sign in to Continue</h2>
+        {error && <p className="text-red-500">{error}</p>}
+        <button
+          onClick={handleLogin}
+          className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login with Rose-Hulman SSO"}
+        </button>
+      </div>
     </div>
   );
-};
-
-export default RoseLogin;
+}
