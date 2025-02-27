@@ -121,7 +121,7 @@ export default function Courses() {
                   ⭐ {courseReviews.length > 0 ? (courseReviews.reduce((acc, r) => acc + (r.rating || 0), 0) / courseReviews.length).toFixed(1) : "No Rating"}
                 </p>
                 <p className="text-gray-600">📌 {courseReviews.length} Reviews</p>
-                <Link href={`/review?course=${course.code}`}>
+                <Link to={`/review?course=${course.code}&name=${encodeURIComponent(course.name)}`}>
                   <button className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
                     Submit a Review
                   </button>

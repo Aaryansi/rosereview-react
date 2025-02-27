@@ -109,9 +109,8 @@ export default function Professors() {
           <button
             key={dept}
             onClick={() => setSelectedDepartment(dept === selectedDepartment ? null : dept)}
-            className={`glass-card px-6 py-4 text-center font-semibold transition transform hover:scale-105 rounded-lg shadow-md ${
-              selectedDepartment === dept ? "bg-red-600 text-white" : "bg-white/40 text-gray-900 hover:bg-white/50"
-            }`}
+            className={`glass-card px-6 py-4 text-center font-semibold transition transform hover:scale-105 rounded-lg shadow-md ${selectedDepartment === dept ? "bg-red-600 text-white" : "bg-white/40 text-gray-900 hover:bg-white/50"
+              }`}
           >
             {dept}
           </button>
@@ -136,19 +135,19 @@ export default function Professors() {
                 <p className="text-gray-600">📌 {profReviews.length} Reviews</p>
                 {profReviews.length > 0 ? (
                   <div className="mt-4 flex gap-2">
-                    <Link href={`/review?professor=${prof.id}`}>
+                    {/* <Link href={`/review?professor=${prof.id}`}>
                       <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
                         Submit a Review
                       </button>
-                    </Link>
-                    <Link href={`/allreviews?professor=${prof.id}`}>
+                    </Link> */}
+                    <Link to={`/allreviews?professor=${prof.id}`}>
                       <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                         View Reviews
                       </button>
                     </Link>
                   </div>
                 ) : (
-                  <Link href={`/review?professor=${prof.id}`}>
+                  <Link to={`/review?professor=${prof.id}&name=${encodeURIComponent(prof.name)}`}>
                     <button className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
                       Submit a Review
                     </button>

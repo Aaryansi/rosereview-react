@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { getCourses, getProfessors, submitReview } from "../../utils/firestore";
 import { Timestamp } from "firebase/firestore";
 import { FaStar, FaTimes } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";  // ✅ Import this to read URL parameters
+
 
 export default function FeedbackForm({ initialCourse = "", initialProfessor = "" }) {
   const [departments, setDepartments] = useState([]);
@@ -16,6 +18,11 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  const [searchParams] = useSearchParams();
+  const courseParam = searchParams.get("course");
+  const courseName = searchParams.get("name");
+  const professorParam = searchParams.get("professor");
+
   const availableCourseTags = ["Easy Grader", "Tough Exams", "Fair Assignments"];
   const availableProfessorTags = ["Helpful", "Strict", "Engaging"];
 
@@ -24,9 +31,28 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
       const allCourses = await getCourses();
       setCourses(allCourses);
       setDepartments([...new Set(allCourses.map((c) => c.department))]);
-
+    
       const allProfessors = await getProfessors();
-      setProfessors(allProfessors); // 🔥 Global Professors - No filtering!
+      setProfessors(allProfessors);
+    
+      // ✅ Auto-fill course and department if passed from URL
+      if (courseParam) {
+        setSelectedCourse(courseParam);
+        const course = allCourses.find((c) => c.code === courseParam);
+        if (course) {
+          setSelectedDepartment(course.department);
+        }
+      }
+      
+      // ✅ Set Professor if passed via URL
+      if (professorParam) {
+        setSelectedProfessor(professorParam);
+      }
+    
+      // ✅ Auto-fill professor if passed from URL
+      if (professorParam) {
+        setSelectedProfessor(professorParam);
+      }
     }
     fetchData();
   }, []);
