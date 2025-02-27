@@ -71,7 +71,6 @@ export default function Professors() {
     }
   }, [searchTerm, professors]);
 
-  // 🔹 **Filter Professors by Department**
   useEffect(() => {
     if (selectedDepartment) {
       setFilteredProfessors(
@@ -91,7 +90,7 @@ export default function Professors() {
         Search for professors or filter by department.
       </p>
 
-      {/* 🔎 Search Bar */}
+      {/*Search Bar */}
       <div className="relative w-full md:w-1/2 mt-6">
         <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
         <input
@@ -103,7 +102,7 @@ export default function Professors() {
         />
       </div>
 
-      {/* 🏛️ Department Filter (Visible First) */}
+      {/* Department Filter (Visible First) */}
       <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {departments.map((dept) => (
           <button
@@ -117,7 +116,7 @@ export default function Professors() {
         ))}
       </div>
 
-      {/* 👨‍🏫 Professors Grid (Appears only when searched or department selected) */}
+      {/*Professors Grid (Appears only when searched or department selected) */}
       {filteredProfessors.length > 0 && (
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProfessors.map((prof) => {
@@ -162,7 +161,7 @@ export default function Professors() {
         </div>
       )}
 
-      {/* 🔥 Trending Professors */}
+      {/*Trending Professors */}
       <div className="mt-12 w-full max-w-4xl">
         <h2 className="text-3xl font-bold text-gray-900 text-center">Trending Professors</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">

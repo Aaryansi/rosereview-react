@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getCourses, getProfessors, submitReview } from "../../utils/firestore";
 import { Timestamp } from "firebase/firestore";
 import { FaStar, FaTimes } from "react-icons/fa";
-import { useSearchParams } from "react-router-dom";  // ✅ Import this to read URL parameters
+import { useSearchParams } from "react-router-dom"; 
 
 
 export default function FeedbackForm({ initialCourse = "", initialProfessor = "" }) {
@@ -46,7 +46,7 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
       const allProfessors = await getProfessors();
       setProfessors(allProfessors);
 
-      // ✅ Auto-fill course and department if passed from URL
+      // Auto-fill course and department if passed from URL
       if (courseParam) {
         setSelectedCourse(courseParam);
         const course = allCourses.find((c) => c.code === courseParam);
@@ -55,12 +55,12 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
         }
       }
 
-      // ✅ Set Professor if passed via URL
+      // Set Professor if passed via URL
       if (professorParam) {
         setSelectedProfessor(professorParam);
       }
 
-      // ✅ Auto-fill professor if passed from URL
+      // Auto-fill professor if passed from URL
       if (professorParam) {
         setSelectedProfessor(professorParam);
       }
@@ -99,8 +99,8 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
         courseId: selectedCourse.trim(),
         professorId: selectedProfessor || null,
         comments,
-        courseTags: [...courseTags],  // ✅ Ensure the array is stored properly
-        professorTags: [...professorTags], // ✅ Ensure the array is stored properly
+        courseTags: [...courseTags],  
+        professorTags: [...professorTags], 
         rating,
         timestamp: Timestamp.now(),
       });

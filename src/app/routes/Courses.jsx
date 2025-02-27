@@ -15,7 +15,7 @@ export default function Courses() {
     const fetchData = async () => {
       try {
         const courseData = await getCourses();
-        const validCourses = courseData.filter(course => course.code && course.department); // Ensure valid courses
+        const validCourses = courseData.filter(course => course.code && course.department); 
         setCourses(validCourses);
 
         // Fetch reviews for all courses to calculate trending courses
@@ -132,7 +132,7 @@ export default function Courses() {
         )}
       </div>
 
-      {/* 🔥 Trending Courses Section */}
+      {/* Trending Courses Section */}
       <div className="mt-12 w-full max-w-4xl">
         <h2 className="text-3xl font-bold text-gray-900 text-center">🔥 Trending Courses</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">

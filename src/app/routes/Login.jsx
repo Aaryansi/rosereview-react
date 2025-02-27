@@ -8,7 +8,7 @@ export default function Login() {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "/rosefire.min.js"; // ✅ Ensure this file exists in `/public`
+    script.src = "/rosefire.min.js"; 
     script.async = true;
     document.body.appendChild(script);
   }, []);

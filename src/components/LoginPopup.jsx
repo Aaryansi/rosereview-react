@@ -12,7 +12,6 @@ export default function LoginPopup({ setUser }) {
         setUser(user);
         setIsVisible(false);
       } else {
-        // ❌ Handle invalid login case
         setError("Login failed! Please try again.");
       }
     } catch (error) {
@@ -30,7 +29,7 @@ export default function LoginPopup({ setUser }) {
       >
         
 
-        {/* 🔥 Title with Glow */}
+        {/* Title with Glow */}
         <h2 className="text-4xl font-extrabold text-white mb-4 drop-shadow-lg">
           Welcome to <span className="text-white-400">Rose Reviews</span>
         </h2>
@@ -42,7 +41,7 @@ export default function LoginPopup({ setUser }) {
 
         
 
-        {/* 🔥 Login Button with Glow & Smooth Animations */}
+        {/* Login Button with Glow & Smooth Animations */}
         <motion.button 
           onClick={handleLogin}
           whileHover={{ scale: 1.1, boxShadow: "0px 0px 15px rgba(255, 50, 50, 0.8)" }}

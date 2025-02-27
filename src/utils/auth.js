@@ -1,11 +1,8 @@
-// src/utils/auth.js
 
 import { auth } from "../config/firebaseConfig";
 import { signInWithCustomToken, signOut, onAuthStateChanged } from "firebase/auth";
 
-const ROSEFIRE_REGISTRY_TOKEN = "62c320b3-a749-4d11-9994-4ce75959e8c5"; // Replace with your registry token
-
-/** 🚀 Sign in with Rosefire */
+const ROSEFIRE_REGISTRY_TOKEN = "62c320b3-a749-4d11-9994-4ce75959e8c5"; 
 export const signInWithRosefire = async () => {
   return new Promise((resolve, reject) => {
     // Ensure Rosefire is loaded before calling signIn
@@ -16,7 +13,7 @@ export const signInWithRosefire = async () => {
 
     window.Rosefire.signIn(ROSEFIRE_REGISTRY_TOKEN, async (err, rfUser) => {
       if (err) {
-        console.error("❌ Rosefire error:", err);
+        console.error("Rosefire error:", err);
         reject(err);
         return;
       }
@@ -26,19 +23,17 @@ export const signInWithRosefire = async () => {
         const userCredential = await signInWithCustomToken(auth, rfUser.token);
         resolve(userCredential.user);
       } catch (error) {
-        console.error("❌ Firebase authentication failed:", error.message);
+        console.error("Firebase authentication failed:", error.message);
         reject(error);
       }
     });
   });
 };
 
-/** 🚪 Logout function */
 export const signOutUser = async () => {
   await signOut(auth);
 };
 
-/** 👀 Auth State Listener */
 export const authStateListener = (callback) => {
   return onAuthStateChanged(auth, callback);
 };

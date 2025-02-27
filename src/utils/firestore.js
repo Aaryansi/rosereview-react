@@ -3,47 +3,47 @@ import {
   collection, getDocs, doc, getDoc, query, where, addDoc, deleteDoc, updateDoc // Added updateDoc
 } from "firebase/firestore";
 
-/** 📌 Fetch all courses */
+/** Fetch all courses */
 export const getCourses = async () => {
   const querySnapshot = await getDocs(collection(db, "courses"));
   return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
-/** 📌 Fetch all professors */
+/** Fetch all professors */
 export const getProfessors = async () => {
   const querySnapshot = await getDocs(collection(db, "profs"));
   return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
-/** 📌 Fetch all departments from courses */
+/** Fetch all departments from courses */
 export const getDepartments = async () => {
   const querySnapshot = await getDocs(collection(db, "courses"));
   const departments = new Set(querySnapshot.docs.map((doc) => doc.data().department));
   return Array.from(departments);
 };
 
-/** 📌 Fetch courses by department */
+/** Fetch courses by department */
 export const getCoursesByDepartment = async (department) => {
   const q = query(collection(db, "courses"), where("department", "==", department));
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
-/** 📌 Fetch professors by department */
+/** Fetch professors by department */
 export const getProfessorsByDepartment = async (department) => {
   const q = query(collection(db, "profs"), where("departments", "array-contains", department));
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
-/** 📌 Fetch professor details by ID */
+/** Fetch professor details by ID */
 export const getProfessorById = async (professorId) => {
   const docRef = doc(db, "profs", professorId);
   const docSnap = await getDoc(docRef);
   return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
 };
 
-/** 📌 Fetch reviews by Course ID */
+/** Fetch reviews by Course ID */
 export const getReviewsByCourse = async (courseId) => {
   try {
     console.log(`Fetching reviews for Course ID: ${courseId}`);
@@ -56,7 +56,7 @@ export const getReviewsByCourse = async (courseId) => {
   }
 };
 
-/** 📌 Fetch reviews by Professor ID */
+/** Fetch reviews by Professor ID */
 export const getReviewsByProfessor = async (professorId) => {
   try {
     console.log(`Fetching reviews for Professor ID: ${professorId}`);
@@ -69,7 +69,7 @@ export const getReviewsByProfessor = async (professorId) => {
   }
 };
 
-/** 📌 Submit a new review */
+/** Submit a new review */
 export const submitReview = async (reviewData) => {
   try {
     const docRef = await addDoc(collection(db, "reviews"), reviewData);
@@ -95,7 +95,7 @@ export const getAllReviews = async () => {
 
 
 
-/** 📌 Update Review */
+/** Update Review */
 export const updateReview = async (reviewId, updatedData) => {
   try {
     const reviewRef = doc(db, "reviews", reviewId);
@@ -107,7 +107,7 @@ export const updateReview = async (reviewId, updatedData) => {
   }
 };
 
-/** 📌 Delete Review */
+/** Delete Review */
 export const deleteReview = async (reviewId) => {
   try {
     await deleteDoc(doc(db, "reviews", reviewId));

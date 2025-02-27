@@ -18,7 +18,7 @@ export default function Navbar({ user }) {
         <Link to="/profs" className="hover:text-red-500 transition">Professors</Link>
         <Link to="/allreviews" className="hover:text-red-500 transition">Reviews</Link>
 
-        {/* ✅ Always Show "Submit a Review" Button */}
+        {/* Always Show "Submit a Review" Button */}
         <Link to="/review">
           <button className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
             Submit Review

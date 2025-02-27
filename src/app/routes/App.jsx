@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { auth } from "../../config/firebaseConfig"; // ✅ Ensure this import is correct
+import { auth } from "../../config/firebaseConfig"; 
 import { onAuthStateChanged } from "firebase/auth";
 
 import Home from "./Home";
@@ -11,7 +11,7 @@ import AllReviews from "./Allreviews";
 import Navbar from "../../components/Navbar";
 import Footer from "./Footer";
 import Login from "./Login";
-import LoginPopup from "../../components/LoginPopup"; // ✅ Import it
+import LoginPopup from "../../components/LoginPopup"; 
 
 
 export default function App() {
@@ -37,7 +37,7 @@ export default function App() {
       <div className="pt-20">
         <Routes>
           {!user ? (
-            <Route path="/*" element={<LoginPopup />} /> // 🔐 If not logged in, redirect to login
+            <Route path="/*" element={<LoginPopup />} /> 
           ) : (
             <>
               <Route path="/" element={<Home />} />

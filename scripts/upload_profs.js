@@ -2,7 +2,6 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { db } from "../src/config/firebase.js";  // Correct path
 
 const professors = [
-    // Air Force ROTC
     { name: "Jaime Albarran", departments: ["Air Force ROTC"] },
     { name: "Kevin Dean", departments: ["Air Force ROTC"] },
     { name: "Harper Kristoffer-Rommell", departments: ["Air Force ROTC"] },
@@ -10,7 +9,6 @@ const professors = [
     { name: "Zach Reinebold", departments: ["Air Force ROTC"] },
     { name: "Melissa Wethington", departments: ["Air Force ROTC"] },
 
-    // Army ROTC
     { name: "James Antonides", departments: ["Army ROTC"] },
     { name: "Ryan Burnett", departments: ["Army ROTC"] },
     { name: "Lance Cole", departments: ["Army ROTC"] },
@@ -29,9 +27,9 @@ const uploadProfessors = async () => {
             name: prof.name,
             departments: prof.departments
         });
-        console.log(`✅ Added: ${prof.name}`);
+        console.log(` Added: ${prof.name}`);
     }
-    console.log("🎉 All ROTC professors uploaded successfully!");
+    console.log("All ROTC professors uploaded successfully!");
 };
 
 uploadProfessors();

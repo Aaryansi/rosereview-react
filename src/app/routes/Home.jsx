@@ -5,20 +5,19 @@ export default function Home() {
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-white text-gray-900 overflow-hidden">
       
-      {/* 🔥 Subtle Gradient Glows */}
+      {/*Subtle  Glows */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute w-96 h-96 bg-red-300 opacity-20 rounded-full blur-[120px] top-20 left-10 animate-pulse"></div>
         <div className="absolute w-80 h-80 bg-red-400 opacity-10 rounded-full blur-[100px] bottom-16 right-16 animate-pulse"></div>
       </div>
 
-      {/* 🌟 Main Glassmorphic Card */}
+      {/* Glassmorphic Card */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.9 }} 
         animate={{ opacity: 1, scale: 1 }} 
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative z-10 bg-white/60 backdrop-blur-lg rounded-3xl shadow-2xl p-12 text-center max-w-3xl border border-white/40"
       >
-        {/* 🎯 Heading */}
         <motion.h1 
           initial={{ y: -20, opacity: 0 }} 
           animate={{ y: 0, opacity: 1 }} 
@@ -29,7 +28,6 @@ export default function Home() {
           <span className="text-red-500">Professors</span> & <span className="text-red-400">Courses</span>
         </motion.h1>
 
-        {/* 📜 Description */}
         <motion.p 
           initial={{ y: 20, opacity: 0 }} 
           animate={{ y: 0, opacity: 1 }} 
@@ -39,7 +37,7 @@ export default function Home() {
           Get real student insights, rate courses & professors, and explore the best classes at RHIT.
         </motion.p>
 
-        {/* 🚀 Call to Action Buttons */}
+        {/* Buttons */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }} 
           animate={{ opacity: 1, scale: 1 }} 

@@ -53,7 +53,7 @@ const uploadCourses = async () => {
             name: course.name,
             code: course.code,
         });
-        console.log(`✅ Added: ${course.code} - ${course.name}`);
+        console.log(`Added: ${course.code} - ${course.name}`);
     }
 
     for (const course of msCourses) {
@@ -62,10 +62,10 @@ const uploadCourses = async () => {
             name: course.name,
             code: course.code,
         });
-        console.log(`✅ Added: ${course.code} - ${course.name}`);
+        console.log(`Added: ${course.code} - ${course.name}`);
     }
 
-    console.log("🔥 All ROTC Airforce & ROTC Army courses uploaded!");
+    console.log(" All ROTC Airforce & ROTC Army courses uploaded!");
 };
 
 uploadCourses();

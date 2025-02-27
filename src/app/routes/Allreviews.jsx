@@ -88,8 +88,8 @@ export default function AllReviews() {
     setUpdatedProfessor(review.professorId || "");
     setUpdatedComments(review.comments || "");
     setUpdatedTags(review.tags || []);
-    setUpdatedCourseTags(review.courseTags || []);  // ✅ Store course tags separately
-    setUpdatedProfessorTags(review.professorTags || []);  // ✅ Store professor tags separately
+    setUpdatedCourseTags(review.courseTags || []);  
+    setUpdatedProfessorTags(review.professorTags || []);  
     setUpdatedRating(review.rating || 0);
     setIsEditing(true);
   };
@@ -102,8 +102,8 @@ export default function AllReviews() {
       courseId: updatedCourse,
       professorId: updatedProfessor,
       comments: updatedComments,
-      courseTags: [...updatedCourseTags], // ✅ Ensure course tags are updated
-      professorTags: [...updatedProfessorTags], // ✅ Ensure professor tags are updated
+      courseTags: [...updatedCourseTags], 
+      professorTags: [...updatedProfessorTags], 
       rating: updatedRating,
     });
 
@@ -146,7 +146,7 @@ export default function AllReviews() {
             <p className="text-gray-600">{review.department || "Unknown Department"}</p>
             <p className="text-gray-800 mt-2">{review.comments}</p>
 
-            {/* 🔥 Display Course & Professor Tags */}
+            {/* Display Course & Professor Tags */}
             <div className="mt-3">
               {review.courseTags && review.courseTags.length > 0 && (
                 <p className="text-sm text-gray-700">
@@ -182,7 +182,7 @@ export default function AllReviews() {
       {/* Edit Modal */}
       {isEditing && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[600px]"> {/* ✅ Made it wider */}
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[600px]"> 
             <h2 className="text-xl font-bold mb-4">Edit Review</h2>
 
             {/* Comments Input */}
@@ -192,7 +192,7 @@ export default function AllReviews() {
               onChange={(e) => setUpdatedComments(e.target.value)}
             />
 
-            {/* 🔥 Course Tags */}
+            {/* Course Tags */}
             <div className="mt-4">
               <h3 className="text-sm font-semibold">Course:</h3>
               <div className="flex flex-wrap gap-2 mt-2">
@@ -217,7 +217,7 @@ export default function AllReviews() {
               </div>
             </div>
 
-            {/* 🔥 Professor Tags */}
+            {/* Professor Tags */}
             <div className="mt-4">
               <h3 className="text-sm font-semibold">Professor:</h3>
               <div className="flex flex-wrap gap-2 mt-2">
