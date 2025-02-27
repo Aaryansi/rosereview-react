@@ -24,13 +24,14 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
   const professorParam = searchParams.get("professor");
 
   const availableCourseTags = [
-    "Easy Grader", "Tough Exams", "Fair Assignments",
-    "Heavy Workload", "Light Workload", "Great Lectures",
+    "Tough Exams", "Many Assignments", "Easy A", "Interesting Material",
+    "Group Projects", "Online Lectures", "In-Person Lectures",
+    "Heavy Workload", "Light Workload", "Easy Exams",
     "Practical Focus", "Challenging but Rewarding",
     "Project-Based", "Curve Adjusted", "Unorganized"
   ];
   const availableProfessorTags = [
-    "Helpful", "Strict", "Engaging",
+    "Helpful", "Strict", "Engaging", "Madatory Attendance",
     "Fast-Paced", "Slow-Paced", "Encouraging",
     "Hard to Understand", "Lots of Extra Credit",
     "Tough Grader", "Great Feedback", "Late Responses"
@@ -85,13 +86,13 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     if (!selectedCourse || rating === 0) {
       alert("Please select a course and provide a rating.");
       setLoading(false);
       return;
     }
-  
+
     try {
       await submitReview({
         department: selectedDepartment,
@@ -103,7 +104,7 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
         rating,
         timestamp: Timestamp.now(),
       });
-  
+
       alert("Review submitted successfully!");
       setComments("");
       setCourseTags([]);
@@ -115,7 +116,7 @@ export default function FeedbackForm({ initialCourse = "", initialProfessor = ""
       console.error("Error submitting review:", error);
       alert("Failed to submit review. Try again.");
     }
-  
+
     setLoading(false);
   };
 
